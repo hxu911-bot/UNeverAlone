@@ -47,10 +47,10 @@ export function FileDropzone({ onFileSelected, isLoading }: FileDropzoneProps) {
       onDragOver={handleDrag}
       onDrop={handleDrop}
       onClick={() => !isLoading && fileInputRef.current?.click()}
-      className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
+      className={`border-2 border-dashed rounded-2xl p-12 text-center cursor-pointer transition-all ${
         isDragActive
-          ? 'border-blue-500 bg-blue-50'
-          : 'border-gray-300 bg-gray-50 hover:border-gray-400'
+          ? 'border-sky-500 bg-sky-50 shadow-md'
+          : 'border-gray-200 bg-gray-50 hover:border-gray-300'
       } ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
     >
       <input
@@ -62,12 +62,13 @@ export function FileDropzone({ onFileSelected, isLoading }: FileDropzoneProps) {
         className="hidden"
       />
 
-      <Upload className="w-8 h-8 mx-auto mb-3 text-gray-400" />
-      <p className="text-sm text-gray-600">
-        {isLoading ? 'Processing...' : 'Drag file here or click to select'}
+      <Upload className={`w-10 h-10 mx-auto mb-3 ${isDragActive ? 'text-sky-500' : 'text-gray-400'}`} />
+      <p className="text-base font-medium text-gray-900 mb-1">
+        {isLoading ? '⏳ Processing...' : '📁 Drag & drop your file here'}
       </p>
-      <p className="text-xs text-gray-500 mt-2">
-        Supported: PDF, Word, JPG, PNG, WebP (max 10MB)
+      <p className="text-sm text-gray-600 mb-2">or click to browse</p>
+      <p className="text-xs text-gray-500">
+        PDF • Word (.docx/.doc) • Images (.jpg/.png/.webp) • Max 10MB
       </p>
     </div>
   );

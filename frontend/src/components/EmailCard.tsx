@@ -34,7 +34,7 @@ export function EmailCard({
   return (
     <div className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
       <div className="mb-4">
-        <span className="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full">
+        <span className="inline-block bg-sky-100 text-sky-700 text-xs font-semibold px-3 py-1 rounded-full">
           {styleLabels[email.style]}
         </span>
       </div>
@@ -63,12 +63,16 @@ export function EmailCard({
       <div className="flex flex-col gap-2">
         <button
           onClick={() => copyToClipboard(fullEmail, 'full')}
-          className="flex items-center justify-center gap-2 py-2 px-3 bg-gray-100 hover:bg-gray-200 rounded text-sm font-medium text-gray-700 transition-colors"
+          className={`flex items-center justify-center gap-2 py-3 px-4 rounded-lg text-sm font-bold transition-colors shadow-sm ${
+            copiedState === 'full'
+              ? 'bg-green-500 text-white shadow-md'
+              : 'bg-sky-500 text-white hover:bg-sky-600 hover:shadow-md'
+          }`}
         >
           {copiedState === 'full' ? (
             <>
-              <Check className="w-4 h-4 text-green-600" />
-              Copied Full Email
+              <Check className="w-4 h-4" />
+              Copied!
             </>
           ) : (
             <>
@@ -81,12 +85,16 @@ export function EmailCard({
         <div className="grid grid-cols-2 gap-2">
           <button
             onClick={() => copyToClipboard(email.subject, 'subject')}
-            className="flex items-center justify-center gap-1 py-2 px-3 bg-blue-50 hover:bg-blue-100 rounded text-xs font-medium text-blue-700 transition-colors"
+            className={`flex items-center justify-center gap-1 py-2 px-3 rounded text-xs font-medium transition-colors ${
+              copiedState === 'subject'
+                ? 'bg-green-500 text-white'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
           >
             {copiedState === 'subject' ? (
               <>
                 <Check className="w-3 h-3" />
-                Copied
+                ✓
               </>
             ) : (
               <>
@@ -98,12 +106,16 @@ export function EmailCard({
 
           <button
             onClick={() => copyToClipboard(email.body, 'body')}
-            className="flex items-center justify-center gap-1 py-2 px-3 bg-green-50 hover:bg-green-100 rounded text-xs font-medium text-green-700 transition-colors"
+            className={`flex items-center justify-center gap-1 py-2 px-3 rounded text-xs font-medium transition-colors ${
+              copiedState === 'body'
+                ? 'bg-green-500 text-white'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
           >
             {copiedState === 'body' ? (
               <>
                 <Check className="w-3 h-3" />
-                Copied
+                ✓
               </>
             ) : (
               <>
@@ -118,7 +130,7 @@ export function EmailCard({
           <button
             onClick={() => onTranslate(email, 'en-US')}
             disabled={isTranslating}
-            className="py-2 px-3 bg-purple-50 hover:bg-purple-100 rounded text-sm font-medium text-purple-700 transition-colors disabled:opacity-50"
+            className="py-2 px-3 bg-gray-100 text-gray-700 rounded text-sm font-medium hover:bg-gray-200 transition-colors disabled:opacity-50"
           >
             Translate to English
           </button>

@@ -76,49 +76,87 @@ export function App() {
     if (!generatedData) return;
   };
 
+  // Determine current step
+  const currentStep = generatedData ? 3 : backgroundText ? 2 : 1;
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 py-8 px-4">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
-            AI-Powered Recruitment Email Generator
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      {/* Header */}
+      <header className="sticky top-0 bg-white border-b border-gray-200 z-10">
+        <div className="max-w-3xl mx-auto px-4 py-4 flex items-center gap-3">
+          <span className="text-2xl">✉️</span>
+          <h1 className="text-xl font-bold text-gray-900">
+            AI Recruitment Email Generator
           </h1>
-          <p className="text-gray-600 text-lg">
-            Generate authentic, personalized emails candidates want to read
-          </p>
         </div>
+      </header>
 
-        {error && (
-          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700">
-            {error}
+      {/* Main Content */}
+      <main className="flex-1 py-8 px-4">
+        <div className="max-w-3xl mx-auto">
+          {/* Step Indicator */}
+          <div className="flex items-center justify-between mb-12">
+            {[1, 2, 3].map((step) => (
+              <div key={step} className="flex items-center flex-1 last:flex-0">
+                <div
+                  className={`flex items-center justify-center w-10 h-10 rounded-full font-bold transition-all ${
+                    step < currentStep
+                      ? 'bg-green-500 text-white'
+                      : step === currentStep
+                      ? 'bg-sky-500 text-white'
+                      : 'bg-gray-200 text-gray-600'
+                  }`}
+                >
+                  {step < currentStep ? '✓' : step}
+                </div>
+                {step < 3 && (
+                  <div
+                    className={`flex-1 h-1 mx-2 transition-all ${
+                      step < currentStep ? 'bg-green-500' : 'bg-gray-200'
+                    }`}
+                  />
+                )}
+              </div>
+            ))}
           </div>
-        )}
 
-        <div className="space-y-6">
-          <BackgroundInput onExtracted={handleExtracted} />
-
-          {backgroundText && (
-            <SettingsPanel
-              onGenerate={handleGenerate}
-              isLoading={isLoading}
-            />
+          {error && (
+            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 flex items-start gap-3">
+              <span className="text-xl flex-shrink-0">⚠️</span>
+              <div>{error}</div>
+            </div>
           )}
 
-          {generatedData && (
-            <GeneratedEmails
-              data={generatedData}
-              isLoading={isLoading}
-              isTranslating={isTranslating}
-              onRegenerate={handleRegenerate}
-              onTranslate={handleTranslate}
-            />
-          )}
-        </div>
+          <div className="space-y-6">
+            <BackgroundInput onExtracted={handleExtracted} />
 
-        <div className="mt-12 text-center text-gray-600 text-sm">
-          <p>Good emails make candidates feel understood and respected, not mass-produced</p>
+            {backgroundText && (
+              <SettingsPanel
+                onGenerate={handleGenerate}
+                isLoading={isLoading}
+              />
+            )}
+
+            {generatedData && (
+              <GeneratedEmails
+                data={generatedData}
+                isLoading={isLoading}
+                isTranslating={isTranslating}
+                onRegenerate={handleRegenerate}
+                onTranslate={handleTranslate}
+              />
+            )}
+          </div>
         </div>
-      </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-white border-t border-gray-200 py-6 px-4">
+        <div className="max-w-3xl mx-auto text-center text-gray-600 text-sm">
+          <p className="text-gray-700 font-medium mb-1">💡 Pro tip</p>
+          <p>Good emails make candidates feel understood and valued, not mass-produced</p>
+        </div>
+      </footer>
     </div>
   );
 }

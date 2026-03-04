@@ -44,26 +44,26 @@ export function BackgroundInput({ onExtracted }: BackgroundInputProps) {
     <div className="bg-white rounded-lg shadow-md p-6 mb-6">
       <h2 className="text-2xl font-bold mb-6">Step 1: Candidate Background Input</h2>
 
-      <div className="flex gap-4 mb-6 border-b">
+      <div className="flex gap-2 mb-6 bg-gray-100 p-1 rounded-lg w-fit">
         <button
           onClick={() => { setMode('file'); setError(''); }}
-          className={`pb-2 px-4 font-medium transition-colors ${
+          className={`pb-2 px-4 font-medium transition-colors rounded-md ${
             mode === 'file'
-              ? 'border-b-2 border-blue-500 text-blue-600'
+              ? 'bg-white text-sky-600 shadow-sm'
               : 'text-gray-600 hover:text-gray-900'
           }`}
         >
-          Upload File
+          📄 Upload File
         </button>
         <button
           onClick={() => { setMode('text'); setError(''); }}
-          className={`pb-2 px-4 font-medium transition-colors ${
+          className={`pb-2 px-4 font-medium transition-colors rounded-md ${
             mode === 'text'
-              ? 'border-b-2 border-blue-500 text-blue-600'
+              ? 'bg-white text-sky-600 shadow-sm'
               : 'text-gray-600 hover:text-gray-900'
           }`}
         >
-          Text Description
+          ✏️ Text Input
         </button>
       </div>
 
@@ -86,15 +86,15 @@ export function BackgroundInput({ onExtracted }: BackgroundInputProps) {
             value={textInput}
             onChange={(e) => setTextInput(e.target.value)}
             placeholder="E.g.: Senior backend engineer with 5 years experience, ex-Google SRE, led payment system architecture redesign..."
-            className="w-full h-32 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full h-32 p-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500"
             disabled={isLoading}
           />
           <button
             onClick={handleTextSubmit}
             disabled={isLoading || !textInput.trim()}
-            className="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="w-full bg-sky-500 text-white py-3 rounded-lg font-bold hover:bg-sky-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-md hover:shadow-lg"
           >
-            {isLoading ? 'Processing...' : 'Use This Background'}
+            {isLoading ? 'Processing...' : '✓ Use This Background'}
           </button>
         </div>
       )}
